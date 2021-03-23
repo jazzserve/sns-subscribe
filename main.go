@@ -59,7 +59,7 @@ func init() {
 }
 
 type handler struct {
-	wg sync.WaitGroup
+	wg *sync.WaitGroup
 }
 
 func (s handler) confirmSubscription(subscribeURL string) {
@@ -110,7 +110,7 @@ func subscribe(region string, topic string, endpoint string, port int) error {
 		return err
 	}
 
-	wg := sync.WaitGroup{}
+	wg := &sync.WaitGroup{}
 	wg.Add(1)
 	go func() {
 		http.Handle(endpointUrl.Path, handler{wg})
